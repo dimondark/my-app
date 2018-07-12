@@ -1,30 +1,41 @@
 import React from 'react';
 import TextArea from '../components/TextArea';
 
-class FormContainer extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-      		pageText: '',
+const buildState = () => ({
+		pageText: '',
       		servicePage: false,
       		restoreStats: false,
 			cards: [{ 
         		name: '',
+        		CBHeader: false,
         		header: '',
+        		CBText: false,	
         		text: '',
         		page: '',
+        		CBStamina: false,
         		stamina: '',
+        		CBHealth: false,
         		health: '',
-        		time: '',
+        		CBTime: false,
+        		time: '',	
         		hideStats: false,
         		allow: false,
         		randomChance: '',
         		fullCard: false,
+        		CBSetStamina: false,
         		setStamina: '',
+        		CBSetHealth: false,
         		setHealth: '',
+        		CBSetTime: false,
         		setTime: '',
+        		CBRestCard: false,	
         		restCard: false}]
-		};
+	});
+
+class FormContainer extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {...buildState()};
 		this.handleClearForm = this.handleClearForm.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
     	this.handlePageTextChange = this.handlePageTextChange.bind(this);
@@ -34,27 +45,7 @@ class FormContainer extends React.Component {
 
   handleClearForm(e) {
   	e.preventDefault();
-  	this.setState({
-  		pageText: '',
-      		servicePage: false,
-      		restoreStats: false,
-			cards: [{ 
-        		name: '',
-        		header: '',
-        		text: '',
-        		page: '',
-        		stamina: '',
-        		health: '',
-        		time: '',
-        		hideStats: false,
-        		allow: false,
-        		randomChance: '',
-        		fullCard: false,
-        		setStamina: '',
-        		setHealth: '',
-        		setTime: '',
-        		restCard: false}]
-  	});
+  	this.setState({...buildState()})
   }
 
   handleFormSubmit(e) {
@@ -64,7 +55,7 @@ class FormContainer extends React.Component {
     // https://www.npmjs.com/package/xmlbuilder
     var builder = require('xmlbuilder');
     var feedObj = {
-      PageAttributes: {
+      PageAtributes: {
         PageText: {
           '#text': this.state.pageText
         },
@@ -88,6 +79,8 @@ class FormContainer extends React.Component {
     element.href = URL.createObjectURL(file);
     element.download = this.state.pageText + '.xml';
     element.click();
+
+    this.handleClearForm(e);
   }
   
   handlePageTextChange(e) {
@@ -115,7 +108,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        header: evt.target.value};
+        header: evt.target.value,
+    	CBHeader: true };
     });
     this.setState({ cards: newCards });
   }
@@ -133,7 +127,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        text: evt.target.value};
+        text: evt.target.value,
+    	CBText: true };
     });
     this.setState({ cards: newCards });
   }
@@ -142,7 +137,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        stamina: evt.target.value};
+        stamina: evt.target.value, 
+    	CBStamina: true };
     });
     this.setState({ cards: newCards });
   }
@@ -151,7 +147,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        health: evt.target.value};
+        health: evt.target.value,
+    	CBHealth: true };
     });
     this.setState({ cards: newCards });
   }
@@ -160,7 +157,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        time: evt.target.value};
+        time: evt.target.value, 
+    	CBTime: true };
     });
     this.setState({ cards: newCards });
   }
@@ -205,7 +203,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setStamina: evt.target.value};
+        setStamina: evt.target.value,
+    	CBSetStamina: true };
     });
     this.setState({ cards: newCards });
   }
@@ -214,7 +213,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setHealth: evt.target.value};
+        setHealth: evt.target.value,
+    	CBSetHealth: true };
     });
     this.setState({ cards: newCards });
   }
@@ -223,7 +223,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setTime: evt.target.value};
+        setTime: evt.target.value, 
+    	CBSetTime: true };
     });
     this.setState({ cards: newCards });
   }
@@ -262,6 +263,48 @@ class FormContainer extends React.Component {
     this.setState({
       cards: this.state.cards.filter((s, sidx) => idx !== sidx)
     });
+  }
+
+  renderFullCard(card, idx) {
+  	return (
+  		<div>
+  			<label>
+        Set Stamina:
+        <input
+          onChange={this.handleCardSetStaminaChange(idx)}
+          value={card.setStamina}
+          type="text" />
+      </label>
+      <label>
+        Set Health:
+        <input
+          onChange={this.handleCardSetHealthChange(idx)}
+          value={card.setHealth}
+          type="text" />
+      </label>
+      <label>
+        Set Time:
+        <input
+          onChange={this.handleCardSetTimeChange(idx)}
+          value={card.setTime}
+          type="text" />
+      </label>
+      <br />
+      <label>
+        Avatar:
+        <input
+          name="Avatar"
+          type="text" />
+      </label>
+      <label>
+        Rest card:
+        <input
+          onChange={this.handleCardRestChange(idx)}
+          checked={card.restCard}
+          type="checkbox" />
+      </label>
+      </div>
+  		);
   }
 
   CardItem(card, idx) {
@@ -351,42 +394,7 @@ class FormContainer extends React.Component {
           checked={card.fullCard}
           type="checkbox" />
       </label>
-      <br />
-      <label>
-        Set Stamina:
-        <input
-          onChange={this.handleCardSetStaminaChange(idx)}
-          value={card.setStamina}
-          type="text" />
-      </label>
-      <label>
-        Set Health:
-        <input
-          onChange={this.handleCardSetHealthChange(idx)}
-          value={card.setHealth}
-          type="text" />
-      </label>
-      <label>
-        Set Time:
-        <input
-          onChange={this.handleCardSetTimeChange(idx)}
-          value={card.setTime}
-          type="text" />
-      </label>
-      <br />
-      <label>
-        Avatar:
-        <input
-          name="Avatar"
-          type="text" />
-      </label>
-      <label>
-        Rest card:
-        <input
-          onChange={this.handleCardRestChange(idx)}
-          checked={card.restCard}
-          type="checkbox" />
-      </label>
+      {card.fullCard && this.renderFullCard(card, idx)}
       <br />
       <br />
     </div>  
@@ -399,7 +407,7 @@ class FormContainer extends React.Component {
           	<h5>Page Data Form</h5>
           	<TextArea
           			title={"Popište událost odehrávající se na této obrazovce."}
-          			rows={4}
+          			rows={5}
           			resize={false}
           			content={this.state.pageText}
           			name={'pageText'}
@@ -413,7 +421,6 @@ class FormContainer extends React.Component {
                 onChange={this.handleServicePageChange}
             		type="checkbox" />
         	</label>
-        	<br />
         	<label>
           		Restore stats:
           		<input
