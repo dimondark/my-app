@@ -1,6 +1,7 @@
 import React from 'react';
 import TextArea from '../components/TextArea';
 import Select from '../components/Select';
+import ValueEdit from '../components/ValueEdit';
 
 const buildState = () => ({
 		pageName: '',
@@ -53,10 +54,9 @@ class FormContainer extends React.Component {
 
   handleFormSubmit(e) {
   	e.preventDefault();
-  	console.log('exportPage button clicked' + this.state.cards.length)
+  	console.log('exportPage button clicked')
 
     if (this.state.cards.length === 0) {
-      console.log('this should be possible')
       window.confirm('Pro export je nutne vyplnit alespon jednu kartu');
       return;
     }
@@ -150,8 +150,16 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        stamina: evt.target.value, 
-    	CBStamina: true };
+        stamina: evt.target.value };
+    });
+    this.setState({ cards: newCards });
+  }
+
+  handleCBStaminaChange = (idx) => (evt) => {
+    const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+        CBStamina: !card.CBStamina };
     });
     this.setState({ cards: newCards });
   }
@@ -166,12 +174,30 @@ class FormContainer extends React.Component {
     this.setState({ cards: newCards });
   }
 
+  handleCBHealthChange = (idx) => (evt) => {
+    const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+        CBHealth: !card.CBHealth };
+    });
+    this.setState({ cards: newCards });
+  }
+
   handleCardTimeChange = (idx) => (evt) => {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
         time: evt.target.value, 
     	CBTime: true };
+    });
+    this.setState({ cards: newCards });
+  }
+
+  handleCBTimeChange = (idx) => (evt) => {
+    const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+        CBTime: !card.CBTime };
     });
     this.setState({ cards: newCards });
   }
@@ -279,6 +305,13 @@ class FormContainer extends React.Component {
   }
 
   renderFullCard(card, idx) {
+    const avatarSelection = [
+      'Avatar 1',
+      'Avatar 2',
+      'Avatar 3',
+      'Avatar 4'
+    ];
+
   	return (
   		<div>
   			<label>
@@ -303,12 +336,9 @@ class FormContainer extends React.Component {
           type="text" />
       </label>
       <br />
-      <label>
-        Avatar:
-        <input
-          name="Avatar"
-          type="text" />
-      </label>
+      <Select
+          placeholder={'Vyberte noveho avatara'}
+          options={avatarSelection} />
       <label>
         Rest card:
         <input
@@ -362,28 +392,24 @@ class FormContainer extends React.Component {
           type="text" />
       </label>
       <br />
-      <label>
-        Stamina:
-        <input
-          onChange={this.handleCardStaminaChange(idx)}
-          value={card.stamina}
-          type="text" />
-      </label>
-      <label>
-        Health:
-        <input
-          onChange={this.handleCardHealthChange(idx)}
-          value={card.health}
-          type="text" />
-      </label>
-      <label>
-        Time:
-        <input
-          onChange={this.handleCardTimeChange(idx)}
-          value={card.time}
-          type="text" />
-      </label>
-      <br />
+      <ValueEdit
+        cbControlFunc={this.handleCBStaminaChange(idx)}
+        cbValue={card.CBStamina}
+        value={card.stamina}
+        controlFunc={this.handleCardStaminaChange(idx)}
+        label={'Stamima'} /> 
+      <ValueEdit
+        cbControlFunc={this.handleCBHealthChange(idx)}
+        cbValue={card.CBHealth}
+        value={card.health}
+        controlFunc={this.handleCardHealthChange(idx)}
+        label={'Health'} />
+      <ValueEdit
+        cbControlFunc={this.handleCBTimeChange(idx)}
+        cbValue={card.CBTime}
+        value={card.time}
+        controlFunc={this.handleCardTimeChange(idx)}
+        label={'Time'} />
       <label>
         Hide stats:
         <input
