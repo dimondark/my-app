@@ -1,5 +1,6 @@
 import React from 'react';
 import TextArea from '../components/TextArea';
+import Select from '../components/Select';
 
 const buildState = () => ({
 		pageText: '',
@@ -38,9 +39,9 @@ class FormContainer extends React.Component {
 		this.state = {...buildState()};
 		this.handleClearForm = this.handleClearForm.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    	this.handlePageTextChange = this.handlePageTextChange.bind(this);
+    this.handlePageTextChange = this.handlePageTextChange.bind(this);
 		this.handleServicePageChange = this.handleServicePageChange.bind(this);
-    	this.handleRestoreStatsChange = this.handleRestoreStatsChange.bind(this);
+    this.handleRestoreStatsChange = this.handleRestoreStatsChange.bind(this);
   }
 
   handleClearForm(e) {
@@ -308,14 +309,19 @@ class FormContainer extends React.Component {
   }
 
   CardItem(card, idx) {
+    const cardNameSelection = [
+      'CardName 1',
+      'CardName 2',
+      'CardName 3'
+    ];
+    
     return (
       <div className="cards">
-        <input
-          type="text"
-          placeholder={'Card name #${idx + 1}'}
-          value={card.name}
-          onChange={this.handleCardNameChange(idx)}
-          />
+        <Select
+          placeholder={'Zvolte jmeno karty'}
+          controlFunc={this.handleCardNameChange(idx)}
+          options={cardNameSelection}
+          selectedOption={this.state.CardName} />
         <button 
           type="button" 
           onClick={this.handlerRemoveCard(idx)} 
