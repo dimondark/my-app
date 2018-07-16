@@ -3,7 +3,8 @@ import TextArea from '../components/TextArea';
 import Select from '../components/Select';
 
 const buildState = () => ({
-		pageText: '',
+		pageName: '',
+    pageText: '',
       		servicePage: false,
       		restoreStats: false,
 			cards: [{ 
@@ -39,6 +40,7 @@ class FormContainer extends React.Component {
 		this.state = {...buildState()};
 		this.handleClearForm = this.handleClearForm.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handlePageNameTextChange = this.handlePageNameTextChange.bind(this);
     this.handlePageTextChange = this.handlePageTextChange.bind(this);
 		this.handleServicePageChange = this.handleServicePageChange.bind(this);
     this.handleRestoreStatsChange = this.handleRestoreStatsChange.bind(this);
@@ -78,10 +80,14 @@ class FormContainer extends React.Component {
     var element = document.createElement("a");
     var file = new Blob([xml], {type: 'application/xml'});
     element.href = URL.createObjectURL(file);
-    element.download = this.state.pageText + '.xml';
+    element.download = this.state.pageName + '.xml';
     element.click();
 
     this.handleClearForm(e);
+  }
+
+  handlePageNameTextChange(e) {
+    this.setState({pageName: e.target.value});
   }
   
   handlePageTextChange(e) {
@@ -314,7 +320,7 @@ class FormContainer extends React.Component {
       'CardName 2',
       'CardName 3'
     ];
-    
+
     return (
       <div className="cards">
         <Select
@@ -411,6 +417,13 @@ class FormContainer extends React.Component {
     	return (
           <form className="container" onSubmit={this.handleFormSubmit}>
           	<h5>Page Data Form</h5>
+            <TextArea
+                title={"Jak se tato stranka bude jmenovat (toto pole bude pouzito pro export)"}
+                rows={1}
+                resize={false}
+                content={this.state.pageName}
+                controlFunc={this.handlePageNameTextChange}
+                placeholder={'1, 2, 3...'} />
           	<TextArea
           			title={"Popište událost odehrávající se na této obrazovce."}
           			rows={5}
