@@ -53,7 +53,13 @@ class FormContainer extends React.Component {
 
   handleFormSubmit(e) {
   	e.preventDefault();
-  	console.log('exportPage button clicked')
+  	console.log('exportPage button clicked' + this.state.cards.length)
+
+    if (this.state.cards.length === 0) {
+      console.log('this should be possible')
+      window.confirm('Pro export je nutne vyplnit alespon jednu kartu');
+      return;
+    }
 
     // https://www.npmjs.com/package/xmlbuilder
     var builder = require('xmlbuilder');
