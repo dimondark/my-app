@@ -9,30 +9,30 @@ const buildState = () => ({
       		servicePage: false,
       		restoreStats: false,
 			cards: [{ 
-        		name: '',
+        		Name : '',
         		CBHeader: false,
-        		header: '',
+        		Header: '',
         		CBText: false,	
-        		text: '',
-        		page: '',
+        		Text: '',
+        		Page: '',
         		CBStamina: false,
-        		stamina: '',
+        		Stamina: '',
         		CBHealth: false,
-        		health: '',
+        		Health: '',
         		CBTime: false,
-        		time: '',	
-        		hideStats: false,
-        		allow: false,
-        		randomChance: '',
-        		fullCard: false,
+        		Time: '',	
+        		HideStats: false,
+        		Allow: false,
+        		RandomChance: '',
+        		FullCard: false,
         		CBSetStamina: false,
-        		setStamina: '',
+        		SetStamina: '',
         		CBSetHealth: false,
-        		setHealth: '',
+        		SetHealth: '',
         		CBSetTime: false,
-        		setTime: '',
+        		SetTime: '',
         		CBRestCard: false,	
-        		restCard: false}]
+        		RestCard: false}]
 	});
 
 class FormContainer extends React.Component {
@@ -112,7 +112,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        name: evt.target.value};
+        Name: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -121,17 +121,8 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        header: evt.target.value,
+        Header: evt.target.value,
     	CBHeader: true };
-    });
-    this.setState({ cards: newCards });
-  }
-
-  handleCardPageChange = (idx) => (evt) => {
-    const newCards = this.state.cards.map((card, sidx) => {
-      if (idx !== sidx) return card;
-      return { ...card, 
-        page: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -140,8 +131,17 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        text: evt.target.value,
-    	CBText: true };
+        Text: evt.target.value,
+      CBText: true };
+    });
+    this.setState({ cards: newCards });
+  }
+
+  handleCardPageChange = (idx) => (evt) => {
+    const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+        Page: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -150,7 +150,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        stamina: evt.target.value };
+        Stamina: evt.target.value };
     });
     this.setState({ cards: newCards });
   }
@@ -168,8 +168,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        health: evt.target.value,
-    	CBHealth: true };
+        Health: evt.target.value };
     });
     this.setState({ cards: newCards });
   }
@@ -187,8 +186,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        time: evt.target.value, 
-    	CBTime: true };
+        Time: evt.target.value };
     });
     this.setState({ cards: newCards });
   }
@@ -206,7 +204,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        hideStats: !card.hideStats};
+        HideStats: !card.HideStats};
     });
     this.setState({ cards: newCards });
   }
@@ -215,7 +213,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        allow: !card.allow};
+        Allow: !card.Allow};
     });
     this.setState({ cards: newCards });
   }
@@ -224,7 +222,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        randomChance: evt.target.value};
+        RandomChance: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -233,7 +231,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        fullCard: !card.fullCard};
+        FullCard: !card.FullCard};
     });
     this.setState({ cards: newCards });
   }
@@ -242,7 +240,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setStamina: evt.target.value,
+        SetStamina: evt.target.value,
     	CBSetStamina: true };
     });
     this.setState({ cards: newCards });
@@ -252,7 +250,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setHealth: evt.target.value,
+        SetHealth: evt.target.value,
     	CBSetHealth: true };
     });
     this.setState({ cards: newCards });
@@ -262,7 +260,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        setTime: evt.target.value, 
+        SetTime: evt.target.value, 
     	CBSetTime: true };
     });
     this.setState({ cards: newCards });
@@ -272,7 +270,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        restCard: !card.restCard};
+        RestCard: !card.restCard};
     });
     this.setState({ cards: newCards });
   }
@@ -280,21 +278,30 @@ class FormContainer extends React.Component {
 	handleAddCard = () => {
 		this.setState({
 			cards: this.state.cards.concat([{ 
-        name: '',
-        header: '',
-        text: '',
-        page: '',
-        stamina: '',
-        health: '',
-        time: '',
-        hideStats: false,
-        allow: false,
-        randomChance: '',
-        fullCard: false,
-        setStamina: '',
-        setHealth: '',
-        setTime: '',
-        restCard: false}])
+        Name : '',
+            CBHeader: false,
+            Header: '',
+            CBText: false,  
+            Text: '',
+            Page: '',
+            CBStamina: false,
+            Stamina: '',
+            CBHealth: false,
+            Health: '',
+            CBTime: false,
+            Time: '', 
+            HideStats: false,
+            Allow: false,
+            RandomChance: '',
+            FullCard: false,
+            CBSetStamina: false,
+            SetStamina: '',
+            CBSetHealth: false,
+            SetHealth: '',
+            CBSetTime: false,
+            SetTime: '',
+            CBRestCard: false,  
+            RestCard: false }])
 		});
 	}
 
@@ -318,21 +325,21 @@ class FormContainer extends React.Component {
         Set Stamina:
         <input
           onChange={this.handleCardSetStaminaChange(idx)}
-          value={card.setStamina}
+          value={card.SetStamina}
           type="text" />
       </label>
       <label>
         Set Health:
         <input
           onChange={this.handleCardSetHealthChange(idx)}
-          value={card.setHealth}
+          value={card.SetHealth}
           type="text" />
       </label>
       <label>
         Set Time:
         <input
           onChange={this.handleCardSetTimeChange(idx)}
-          value={card.setTime}
+          value={card.SetTime}
           type="text" />
       </label>
       <br />
@@ -343,7 +350,7 @@ class FormContainer extends React.Component {
         Rest card:
         <input
           onChange={this.handleCardRestChange(idx)}
-          checked={card.restCard}
+          checked={card.RestCard}
           type="checkbox" />
       </label>
       </div>
@@ -372,7 +379,7 @@ class FormContainer extends React.Component {
       <label>
         Header:
         <input
-          value={card.header}
+          value={card.Header}
           onChange={this.handleCardHeaderChange(idx)}
           type="text" />
       </label>
@@ -381,64 +388,64 @@ class FormContainer extends React.Component {
         Text:
         <input
           onChange={this.handleCardTextChange(idx)}
-          value={card.text}
+          value={card.Text}
           type="text" />
       </label>
       <label>
         Page:
         <input
           onChange={this.handleCardPageChange(idx)}
-          value={card.page}
+          value={card.Page}
           type="text" />
       </label>
       <br />
       <ValueEdit
         cbControlFunc={this.handleCBStaminaChange(idx)}
         cbValue={card.CBStamina}
-        value={card.stamina}
+        value={card.Stamima}
         controlFunc={this.handleCardStaminaChange(idx)}
         label={'Stamima'} /> 
       <ValueEdit
         cbControlFunc={this.handleCBHealthChange(idx)}
         cbValue={card.CBHealth}
-        value={card.health}
+        value={card.Health}
         controlFunc={this.handleCardHealthChange(idx)}
         label={'Health'} />
       <ValueEdit
         cbControlFunc={this.handleCBTimeChange(idx)}
         cbValue={card.CBTime}
-        value={card.time}
+        value={card.Time}
         controlFunc={this.handleCardTimeChange(idx)}
         label={'Time'} />
       <label>
         Hide stats:
         <input
           onChange={this.handleCardHideStatsChange(idx)}
-          checked={card.hideStats}
+          checked={card.HideStats}
           type="checkbox" />
       </label>
       <label>
         Allow:
         <input
           onChange={this.handleCardAllowChange(idx)}
-          checked={card.allow}
+          checked={card.Allow}
           type="checkbox" />
       </label>
       <label>
         randomChance:
         <input
           onChange={this.handleCardRandomChange(idx)}
-          value={card.randomChance}
+          value={card.RandomChance}
           type="text" />
       </label>
       <label>
         Full card:
         <input
           onChange={this.handleCardFullChange(idx)}
-          checked={card.fullCard}
+          checked={card.FullCard}
           type="checkbox" />
       </label>
-      {card.fullCard && this.renderFullCard(card, idx)}
+      {card.FullCard && this.renderFullCard(card, idx)}
       <br />
       <br />
     </div>  
@@ -461,7 +468,6 @@ class FormContainer extends React.Component {
           			rows={5}
           			resize={false}
           			content={this.state.pageText}
-          			name={'pageText'}
           			controlFunc={this.handlePageTextChange}
           			placeholder={'Prosím buďtě v popisu důkladní'} />
         	<br />
