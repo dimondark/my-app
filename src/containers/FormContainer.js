@@ -4,8 +4,8 @@ import Select from '../components/Select';
 import ValueEdit from '../components/ValueEdit';
 
 const buildState = () => ({
-		pageName: '',
-    pageText: '',
+			pageName: '',
+    		pageText: '',
       		servicePage: false,
       		restoreStats: false,
 			cards: [{ 
@@ -16,21 +16,23 @@ const buildState = () => ({
         		Text: '',
         		Page: '',
         		CBStamina: false,
-        		Stamina: '',
+        		Stamina: '0',
         		CBHealth: false,
-        		Health: '',
+        		Health: '0',
         		CBTime: false,
-        		Time: '',	
+        		Time: '0',	
         		HideStats: false,
-        		Allow: false,
-        		RandomChance: '',
+        		Allow: '',
+        		RandomChance: '100',
         		FullCard: false,
         		CBSetStamina: false,
-        		SetStamina: '',
+        		SetStamina: '0',
         		CBSetHealth: false,
-        		SetHealth: '',
+        		SetHealth: '0',
         		CBSetTime: false,
-        		SetTime: '',
+        		SetTime: '0',
+        		CBAvatar: false,
+        		Avatar: '',
         		CBRestCard: false,	
         		RestCard: false}]
 	});
@@ -213,7 +215,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        Allow: !card.Allow};
+        Allow: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -266,6 +268,24 @@ class FormContainer extends React.Component {
     this.setState({ cards: newCards });
   }
 
+  handleCardCBAvatarChange = (idx) => (evt) => {
+  	  const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+    	CBAvatar: !card.CBAvatar };
+    });
+    this.setState({ cards: newCards });
+  }
+
+  handleAvatarChange = (idx) => (evt) => {
+  	  const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+    	Avatar: evt.target.value };
+    });
+    this.setState({ cards: newCards });
+  }
+
   handleCardRestChange = (idx) => (evt) => {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
@@ -278,30 +298,32 @@ class FormContainer extends React.Component {
 	handleAddCard = () => {
 		this.setState({
 			cards: this.state.cards.concat([{ 
-        Name : '',
-            CBHeader: false,
-            Header: '',
-            CBText: false,  
-            Text: '',
-            Page: '',
-            CBStamina: false,
-            Stamina: '',
-            CBHealth: false,
-            Health: '',
-            CBTime: false,
-            Time: '', 
-            HideStats: false,
-            Allow: false,
-            RandomChance: '',
-            FullCard: false,
-            CBSetStamina: false,
-            SetStamina: '',
-            CBSetHealth: false,
-            SetHealth: '',
-            CBSetTime: false,
-            SetTime: '',
-            CBRestCard: false,  
-            RestCard: false }])
+        		Name : '',
+        		CBHeader: false,
+        		Header: '',
+        		CBText: false,	
+        		Text: '',
+        		Page: '',
+        		CBStamina: false,
+        		Stamina: '0',
+        		CBHealth: false,
+        		Health: '0',
+        		CBTime: false,
+        		Time: '0',	
+        		HideStats: false,
+        		Allow: '',
+        		RandomChance: '100',
+        		FullCard: false,
+        		CBSetStamina: false,
+        		SetStamina: '0',
+        		CBSetHealth: false,
+        		SetHealth: '0',
+        		CBSetTime: false,
+        		SetTime: '0',
+        		CBAvatar: false,
+        		Avatar: '',
+        		CBRestCard: false,	
+        		RestCard: false}])
 		});
 	}
 
@@ -343,9 +365,18 @@ class FormContainer extends React.Component {
           type="text" />
       </label>
       <br />
+      <label>
+        Avatar:
+        <input
+          onChange={this.handleCardCBAvatarChange(idx)}
+          checked={card.CBAvatar}
+          type="checkbox" />
+      </label>
       <Select
           placeholder={'Vyberte noveho avatara'}
-          options={avatarSelection} />
+          controlFunc={this.handleAvatarChange(idx)}
+          options={avatarSelection}
+          selectedOption={card.Avatar} />
       <label>
         Rest card:
         <input
@@ -363,6 +394,12 @@ class FormContainer extends React.Component {
       'CardName 2',
       'CardName 3'
     ];
+
+    const cardAllowSelection = [
+    	'Hrdina 1',
+    	'Hrdina 2',
+    	'Hrdina 3'
+    ]
 
     return (
       <div className="cards">
@@ -424,13 +461,11 @@ class FormContainer extends React.Component {
           checked={card.HideStats}
           type="checkbox" />
       </label>
-      <label>
-        Allow:
-        <input
-          onChange={this.handleCardAllowChange(idx)}
-          checked={card.Allow}
-          type="checkbox" />
-      </label>
+      <Select
+          placeholder={'Pro koho je karta povolena'}
+          controlFunc={this.handleCardAllowChange(idx)}
+          options={cardAllowSelection}
+          selectedOption={card.Allow} />
       <label>
         randomChance:
         <input
