@@ -290,7 +290,7 @@ class FormContainer extends React.Component {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        RestCard: !card.restCard};
+        RestCard: !card.RestCard};
     });
     this.setState({ cards: newCards });
   }
