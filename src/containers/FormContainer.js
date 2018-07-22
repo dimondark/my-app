@@ -34,7 +34,7 @@ const buildState = () => ({
         		CBAvatar: false,
         		Avatar: '',
         		CBRestCard: false,	
-        		RestCard: false}]
+        		RestCard: ''}]
 	});
 
 class FormContainer extends React.Component {
@@ -286,11 +286,20 @@ class FormContainer extends React.Component {
     this.setState({ cards: newCards });
   }
 
-  handleCardRestChange = (idx) => (evt) => {
+  handleCBCardRestChange = (idx) => (evt) => {
     const newCards = this.state.cards.map((card, sidx) => {
       if (idx !== sidx) return card;
       return { ...card, 
-        RestCard: !card.RestCard};
+        CBRestCard: !card.CBRestCard};
+    });
+    this.setState({ cards: newCards });
+  }
+
+  handleRestCardChange = (idx) => (evt) => {
+    const newCards = this.state.cards.map((card, sidx) => {
+      if (idx !== sidx) return card;
+      return { ...card, 
+        RestCard: evt.target.value};
     });
     this.setState({ cards: newCards });
   }
@@ -323,7 +332,7 @@ class FormContainer extends React.Component {
         		CBAvatar: false,
         		Avatar: '',
         		CBRestCard: false,	
-        		RestCard: false}])
+        		RestCard: ''}])
 		});
 	}
 
@@ -339,6 +348,12 @@ class FormContainer extends React.Component {
       'Avatar 2',
       'Avatar 3',
       'Avatar 4'
+    ];
+
+    const restCardSelection = [
+    	'Card_Action_Sleep',
+    	'Card_Action_Eat',
+    	'Card_Action_ChillOut'
     ];
 
   	return (
@@ -380,12 +395,17 @@ class FormContainer extends React.Component {
       <label>
         Rest card:
         <input
-          onChange={this.handleCardRestChange(idx)}
-          checked={card.RestCard}
+          onChange={this.handleCBCardRestChange(idx)}
+          checked={card.CBRestCard}
           type="checkbox" />
       </label>
+      <Select
+          placeholder={'Vyberte kartu pro doplnění energie'}
+          controlFunc={this.handleRestCardChange(idx)}
+          options={restCardSelection}
+          selectedOption={card.RestCard} />
       </div>
-  		);
+  	);
   }
 
   CardItem(card, idx) {
