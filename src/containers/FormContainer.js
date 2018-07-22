@@ -390,9 +390,36 @@ class FormContainer extends React.Component {
 
   CardItem(card, idx) {
     const cardNameSelection = [
-      'CardName 1',
-      'CardName 2',
-      'CardName 3'
+      'Card_Menu_Again',
+      'Card_Menu_Quit',
+      'Card_Action_Fight',
+      'Card_Action_Talk',
+      'Card_Action_Buy',
+      'Card_Action_Sell',
+      'Card_Action_Read',
+      'Card_Action_Find',
+      'Card_Action_Steal',
+      'Card_Action_Sleep',
+      'Card_Action_Eat',
+      'Card_Action_Action',
+      'Card_Action_ChillOut',
+      'Card_Action_Go',
+      'Card_Action_Stay',
+      'Card_Action_GoBack',
+      'Card_Action_GoLeft',
+      'Card_Action_GoRight',
+      'Card_Action_GoUp',
+      'Card_Action_GoDown',
+      'Card_Action_ForrestRoad',
+      'Card_Action_PlainRoad',
+      'Card_Action_MountainRoad',
+      'Card_Action_Sail',
+      'Card_Action_Fly',
+      'Card_Action_Run',
+      'Card_Action_Jump',
+      'Card_Bonus_Luck',
+      'Card_Bonus_Bless',
+      'Card_Bonus_Miracle'
     ];
 
     const cardAllowSelection = [
