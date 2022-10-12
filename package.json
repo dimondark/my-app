@@ -9,7 +9,7 @@
     "react-scripts": "1.1.4",
     "spectre.css": "^0.1.27",
     "xmlbuilder": "^10.0.0",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.6.0"
   },
   "scripts": {
     "predeploy": "npm run build",
