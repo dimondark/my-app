@@ -6,7 +6,7 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4",
+    "react-scripts": "5.0.1",
     "spectre.css": "^0.1.27",
     "xmlbuilder": "^10.0.0",
     "xmldom": "^0.1.27"
